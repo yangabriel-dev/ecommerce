@@ -60,7 +60,7 @@
     display: block;
     height: 3px;
     width: 100%;
-    background-color: #ffffff;
+    background-color: var(--cor-neutra-clara);
 }
 .botao-carrinho
 {
@@ -96,9 +96,9 @@
         flex-direction: row;
     }
 }
-@media (min-width: 1440px) {
+@media (min-width: 1170px) {
     .cabecalho {
-        max-width: 1440px;
+        max-width: 1170px;
         margin: 0 auto;
     }
 }
