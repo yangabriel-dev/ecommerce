@@ -95,7 +95,7 @@ function renderizarProdutosNoCarrinho() {
             </td>
             <td class="td-preco-total">R$ ${(produto.preco * produto.quantidade).toFixed(2).replace('.', ',')}</td>
             <td class="td-remover">
-                <button class="btn-remover" data-id="${produto.id}">Remover</button>
+                <button class="btn-remover" data-id="${produto.id}"></button>
             </td>
         `;
         corpoTabela.appendChild(tr);
