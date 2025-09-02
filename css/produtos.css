@@ -90,7 +90,7 @@ main .informacoes .adicionar-ao-carrinho:hover {
     }
     main .produtos ul {
         flex-direction: row;
-        flex: wrap;
+        flex-wrap: wrap;
         gap: 2rem;
     }
 }
