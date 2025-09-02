@@ -46,6 +46,7 @@ botoesAdicionarAoCarrinho.forEach(botao => {
         }
         salvarProdutoNoCarrinho(carrinho); // salva o array atualizado no localStorage
         atualizarContadorCarrinho(); // atualiza o contador no HTML
+        renderizarProdutosNoCarrinho(); // atualiza a tabela do carrinho
     });
 })
 
@@ -67,9 +68,40 @@ function atualizarContadorCarrinho() {
     carrinho.forEach(produto => {
         totalQuantidade += produto.quantidade;
     }); // soma a quantidade de cada produto
-    
+
     // atualiza o contador no HTML
     document.getElementById('contador-carrinho').textContent = totalQuantidade;
 }
 
 atualizarContadorCarrinho();// chama a função para atualizar o contador quando a página carrega
+
+//RENDERIZAR OS PRODUTOS DO CARRINHO NA TABELA
+function renderizarProdutosNoCarrinho() {
+    const produtos = obterProdutosDoCarrinho();// array
+    const corpoTabela = document.querySelector('#modal-1-content tbody');// seleciona o corpo da tabela
+    corpoTabela.innerHTML = ''; // limpa o corpo da tabela
+    // para cada produto, cria uma linha na tabela
+    produtos.forEach(produto => {
+        const tr = document.createElement('tr'); // cria uma linha
+        tr.innerHTML = `<td class="td-produto">
+             <img 
+                src="${produto.imagem}" 
+                alt="${produto.nome}"
+             />
+            </td>
+            <td class="td-nome">${produto.nome}</td>
+            < class="td-preco-unitaruio">R$ ${produto.preco.toFixed(2).replace('.', ',')}</td>
+            <td class="td-quantidade">
+            <input type="number" value="${produto.quantidade}" min="1"/>
+            </td>
+            <td class="td-preco-total">R$ ${(produto.preco * produto.quantidade).toFixed(2).replace('.', ',')}</td>
+            <td class="td-remover">
+                <button class="remover-produto" data-id="${produto.id}"></button>
+            </td>
+            `;
+         corpoTabela.appendChild(tr); // adiciona a linha ao corpo da tabela
+    });
+    
+}
+
+renderizarProdutosNoCarrinho(); // chama a função para renderizar os produtos no carrinho
