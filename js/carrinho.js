@@ -96,7 +96,7 @@ function renderizarProdutosNoCarrinho() {
             </td>
             <td class="td-preco-total">R$ ${(produto.preco * produto.quantidade).toFixed(2).replace('.', ',')}</td>
             <td class="td-remover">
-                <button class="remover-produto" data-id="${produto.id}"></button>
+                <button class="btn-remover" data-id="${produto.id}"></button>
             </td>
             `;
          corpoTabela.appendChild(tr); // adiciona a linha ao corpo da tabela
@@ -105,3 +105,24 @@ function renderizarProdutosNoCarrinho() {
 }
 
 renderizarProdutosNoCarrinho(); // chama a função para renderizar os produtos no carrinho
+
+//OUVIR O BOTÃO DE REMOVER PRODUTO
+const corpoTabela = document.querySelector('#modal-1-content tbody');// seleciona o corpo da tabela
+corpoTabela.addEventListener('click', (evento) => {
+    if (!evento.target.classList.contains('btn-remover')) { // verifica se o clique foi no botão de deletar
+        const id = evento.target.dataset.id; // pega o id do produto
+        removerProdutoDoCarrinho(id); // chama a função para remover o produto
+    };
+    
+})
+
+function removerProdutoDoCarrinho(id) {
+    const carrinho = obterProdutosDoCarrinho(); // array
+
+    // filtra o array, removendo o produto com o id passado
+    const carrinhoAtualizado = produtos.filter(produto => produto.id !== id);
+
+    salvarProdutoNoCarrinho(carrinhoAtualizado); // salva o array atualizado no localStorage
+    atualizarContadorCarrinho(); // atualiza o contador no HTML
+    renderizarProdutosNoCarrinho(); // atualiza a tabela do carrinho
+}
