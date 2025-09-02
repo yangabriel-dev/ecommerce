@@ -45,6 +45,7 @@ botoesAdicionarAoCarrinho.forEach(botao => {
             carrinho.push(produto);
         }
         salvarProdutoNoCarrinho(carrinho); // salva o array atualizado no localStorage
+        atualizarContadorCarrinho(); // atualiza o contador no HTML
     });
 })
 
@@ -58,3 +59,17 @@ function obterProdutosDoCarrinho() {
     const produtos = localStorage.getItem('carrinho'); // 'carrinho' é a chave onde os produtos estão armazenados
     return produtos ? JSON.parse(produtos) : []; // se produtos for nulo, retorna um array vazio
 }
+
+// Função para atualizar o contador do carrinho
+function atualizarContadorCarrinho() {
+    const carrinho = obterProdutosDoCarrinho(); // array
+    let totalQuantidade = 0; // contador
+    carrinho.forEach(produto => {
+        totalQuantidade += produto.quantidade;
+    }); // soma a quantidade de cada produto
+    
+    // atualiza o contador no HTML
+    document.getElementById('contador-carrinho').textContent = totalQuantidade;
+}
+
+atualizarContadorCarrinho();// chama a função para atualizar o contador quando a página carrega
